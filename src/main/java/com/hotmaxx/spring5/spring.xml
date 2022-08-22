@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:context="">
+    <bean id="book" class="com.hotmaxx.spring5.test.Book">
+        <property name="name" value="道德经"></property>
+        <property name="autor" value="老子"/>
+        <property name="autor">
+            <value>
+                <!-->有特殊符号的值<-->
+                <![CDATA[###]]>
+            </value>
+        </property>
+        >
+    </bean>
+    <bean id="orders" class="com.hotmaxx.spring5.Orders">
+        <constructor-arg name="oname">
+            <null/>
+        </constructor-arg>
+        <constructor-arg name="address" value="minhang"/>
+    </bean>
+    <!-->注入外部bean<-->
+    <bean id="userService" class="com.hotmaxx.spring5.service.UserService">
+        <property name="userDao" ref="userDaoImpl">
+        </property>
+        <property name="list">
+            <list>
+                <value>wanda</value>
+                <value>linyu</value>
+            </list>
+        </property>
+        <property></property>
+    </bean>
+    ]
+    <bean id="userDaoImpl" class="com.hotmaxx.spring5.Dao.UserDaoImpl"></bean>
+    <context:conponent-scan base-package="com.hotmaxx.spring5" ></context:conponent-scan>
+</beans>

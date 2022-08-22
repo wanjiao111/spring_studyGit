@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hotmaxx.mapper.EmployeeMapper">
+
+    <select id="getByPhoneSQL" resultType="com.hotmaxx.model.po.EmployeeDemo">
+        select id, name , mobile, post_name employeePostName from hotmaxx_employee where mobile = #{phone}
+    </select>
+    <select id="getThePhone" resultType="com.hotmaxx.model.vo.EmployeeDemoVO">
+        select  mobile,name from hotmaxx_employee where name like '许%%'
+    </select>
+
+    <select id="getByPostName" resultType="com.hotmaxx.model.po.EmployeeDemo">
+        select * from hotmaxx_employee where post_name != null or post_name != ''
+    </select>
+<!--    <select id="getTheManagerModel" resultType="entity">-->
+<!--        select mobile,name from hotmaxx_employee where post_name ='店长'-->
+<!--    </select>-->
+<!--    <select id="getTheManagerString" resultType="java.lang.String">-->
+<!--        select name from hotmaxx_employee where mobile = '19928275835'-->
+<!--    </select>-->
+    <select id="getTheManagerMap" resultType="com.hotmaxx.model.vo.EmployeeDemoVO">
+        select name,mobile from hotmaxx_employee
+    </select>
+    <select id="getHsrByShopCode" resultType="com.hotmaxx.model.vo.InformationVO">
+        select mobile from hotmaxx_employee he left join  hotmaxx_shop_roster hsr
+        on he.id=hsr.employee_id  where he.shop_code=#{shopCode};
+    </select>
+
+</mapper>

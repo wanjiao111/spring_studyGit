@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hotmaxx.mapper.HotmaxxAllianceShopMapper">
+    <select id="getShopList" resultType="com.hotmaxx.model.vo.AllianceShopVO">
+        select  hab.name as alliance_name,
+        habs.shop_name,habs.shop_code,
+        habs.margin_line,habs.credit_line,habs.create_time,
+        hab.account_bank,hab.account_card_num,
+        hab.account_name,habs.virtual_account_bank,
+        habs.virtual_account_card_num
+        from hotmaxx_alliance_business hab right JOIN hotmaxx_alliance_bind_shop habs
+        on
+        hab.`code`=habs.alliance_code
+        where
+        1=1
+        <if test="allianceNameCode != null and allianceNameCode !=''">
+            and( (hab.code  like CONCAT('%',#{allianceNameCode},'%')
+            or hab.name like CONCAT('%',#{allianceNameCode},'%')
+            ))
+        </if>
+        <if test="shopNameCode != null and shopNameCode !=''">
+            and habs.shopCode=#{shopNameCode}
+        </if>
+    </select>
+
+</mapper>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hotmaxx.mapper.ShopMapper">
+    <select id="getShopOwnerByShopCode" resultType="com.hotmaxx.model.vo.InformationVO">
+        select mobile from hotmaxx_shop hs left join  hotmaxx_employee he
+        on hs.employee_id=he.id
+        where hs.shop_code=#{shopCode} ;
+    </select>
+
+</mapper>

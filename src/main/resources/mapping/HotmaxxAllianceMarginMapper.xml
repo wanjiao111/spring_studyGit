@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hotmaxx.mapper.HotmaxxAllianceMarginMapper">
+    <select id="getMarginList" resultType="com.hotmaxx.model.vo.AllianceMarginVO">
+        SELECT
+        ham.flowing_biz_no,
+        hab.NAME AS alliance_name,
+        habs.shop_name ,
+        habs.shop_code,
+        ham.create_time ,
+        ham.margin_change_type as margin_type,
+        ham.margin_change_reason as reason
+        FROM
+        hotmaxx_alliance_margin ham
+        LEFT JOIN hotmaxx_alliance_bind_shop habs ON ham.shop_code = habs.shop_code
+        LEFT JOIN hotmaxx_alliance_business hab ON habs.alliance_code = hab.CODE
+        where
+        1=1
+        <if test="createTimeStart != null ">
+            AND (
+            DATE_FORMAT(ham.create_time, '%Y-%m-%d' )>=#{createTimeStart}
+            )
+        </if>
+        <if test="createTimeEnd != null ">
+            AND (
+            #{createTimeEnd}>=DATE_FORMAT(ham.create_time, '%Y-%m-%d' )
+            )
+        </if>
+        <if test="allianceNameCode != null and allianceNameCode !=''">
+            and ((hab.code  like CONCAT('%',#{allianceNameCode},'%')
+            or (hab.name like CONCAT('%',#{allianceNameCode},'%'))
+        </if>
+        <if test="shopNameCode != null and shopNameCode !=''">
+            and habs.shopCode=#{shopNameCode}
+        </if>
+    </select>
+
+</mapper>
